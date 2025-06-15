@@ -1,9 +1,23 @@
-import { defineConfigWithVueTs } from '@vue/eslint-config-typescript'
 import pluginVue from 'eslint-plugin-vue'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import tseslint from '@typescript-eslint/eslint-plugin'
+import tsparser from '@typescript-eslint/parser'
 
-export default defineConfigWithVueTs(
-  ...pluginVue.configs['flat/essential'], // 自定义规则配置
+export default [
+  ...pluginVue.configs['flat/essential'],
+  {
+    languageOptions: {
+      parser: tsparser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        extraFileExtensions: ['.vue']
+      }
+    },
+    plugins: {
+      '@typescript-eslint': tseslint
+    }
+  },
   {
     name: 'app/files-to-lint',
     files: ['**/*.{ts,mts,tsx,vue}'],
@@ -23,4 +37,4 @@ export default defineConfigWithVueTs(
   },
 
   skipFormatting
-)
+]
