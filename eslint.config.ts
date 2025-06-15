@@ -2,6 +2,7 @@ import pluginVue from 'eslint-plugin-vue'
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import tseslint from '@typescript-eslint/eslint-plugin'
 import tsparser from '@typescript-eslint/parser'
+import vueParser from 'vue-eslint-parser'
 
 export default [
   ...pluginVue.configs['flat/essential'],
@@ -11,12 +12,12 @@ export default [
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        extraFileExtensions: ['.vue']
-      }
+        extraFileExtensions: ['.vue'],
+      },
     },
     plugins: {
-      '@typescript-eslint': tseslint
-    }
+      '@typescript-eslint': tseslint,
+    },
   },
   {
     name: 'app/files-to-lint',
@@ -31,10 +32,22 @@ export default [
       '@typescript-eslint/no-unused-vars': ['warn', { args: 'none' }], // 警告未使用的变量
     },
   },
-
   {
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**']
+    files: ['**/*.vue'],
+    languageOptions: {
+      parser: vueParser, // 使用Vue专用解析器
+      parserOptions: {
+        parser: tsparser, // 对<script>块使用TS解析器
+        extraFileExtensions: ['.vue'],
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
   },
 
-  skipFormatting
+  {
+    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
+  },
+
+  skipFormatting,
 ]
