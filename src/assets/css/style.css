@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'maple-ui';
+  src: url('../font/MapleUI.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'maple-ui', system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
